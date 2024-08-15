@@ -26,6 +26,13 @@ def remove_assessment():
     else:
         db.execute("DELETE FROM quizes WHERE (subject, date, info) = (?,?,?)", subject, date, info)
     return "success"
+###
+@app.route('/remove_topic', methods=['POST'])
+def remove_topic():
+    topic_details = json.loads(request.data.decode())["input"]
+    subject, topic = topic_details.split(",")
+    remove_topic_(subject.upper(), topic)
+    return "success"
 
 @app.after_request
 def after_request(response):
