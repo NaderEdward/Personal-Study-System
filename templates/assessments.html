@@ -170,7 +170,7 @@ button.addEventListener('click', () => {
     };
     // Send data in below way from JS
     r.send(JSON.stringify({"input": button.getAttribute("value")}));
-    location.replace(`http://127.0.0.1:5000/assessments?selected_subject=${button.getAttribute("title")}`); // Reload page after removing assessment
+    location.replace(`http://127.0.0.1:5000/assessments?selected_subject=${button.getAttribute("title")}{ method: 'POST'}`); // Reload page after removing assessment
 });
 </script>
 {% endblock %}
