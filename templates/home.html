@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block main %}
+
+<div id="background_home">
+  <div class="container text-center">
+    <div class="row">
+        <div class="col-md-4 small_div_home container">
+          <img class="imageToDisplay" style="border: 3px solid #212429;">
+          <div class="bottom-left-text">{{date}}</div>
+          <div class="bottom-right-text">{{weekday}}</div>
+        </div>
+        <div class="col-md-4 to_do_list" style="width: 50%;">
+          <div class="row">
+            <h5 class="form-label shadows-into-light-regular" style="font-size: x-large; padding-top: 0.5cm; padding-bottom: 0.15cm; color:black;"><span class="highlight"> To Do List </span></h5>
+            <div class="col-md-4 to_do_sidebar">
+              <h6 class="form-label" style="margin-bottom: 0.5cm;">Add To Do Item</h6>
+              <h6 style="margin-top: -0.5cm;">____________</h6>
+              <form action="/" method="post">
+                <input autocomplete="off" name="item" type="text" class="form-control form-item todo_field" placeholder="Item">
+                <input autocomplete="off" name="importance" type="number" class="form-control form-item todo_field" placeholder="Importance">
+                <button type="submit" name="action" class="btn btn-light form-item todo_field">Add</button>
+              </form>
+            </div>
+            <div class="col-md-4" style="text-align: left; margin-top: 0.5cm; margin-left: 1cm; width: 9.5cm;">
+              <form action="/" method="post">
+                {% for item in items %}
+                <div>
+                  <input class="form-check-input" style="margin-left: -0.25cm;" type="checkbox" name="check-{{item['item']}}"/>
+                  <label style="font-size: large;" for="checkbox">{{item["item"]}}</label>
+                </div>
+                {% endfor %}
+                <button type="submit" name="action" class="btn btn-light form-item" style="width: 2cm; height: 1cm; margin-top: 0.5cm; margin-left: 1.25cm;;">Save</button>
+              </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  <div class="container text-center">
+      <div class="row">
+          <div class="col-8 large_div_home">
+            <div id="fact">
+              <label class="form-label form-item" style=" margin-top: -1cm;"><strong>Fact</strong></label>
+              <div>{{fact}}</div>
+            </div>
+            <div id="pages_tab">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a aria-disabled="true" style="width: 4cm; margin-bottom: 10px; margin-top: 10px; font-size: large;" role="button">Pages</a> 
+                </li>
+                <li style="margin-top: -0.25cm; margin-bottom: 0.5cm;">______________</li>
+                <li class="nav-item">
+                  <a style="width: 4cm; margin-bottom: 10px; margin-top: 10px; background-color: #FFDA78;" class="btn btn-light" href="/assessments" role="button">Assessments</a> 
+                </li>
+                <li class="nav-item">
+                  <a style="width: 4cm; margin-bottom: 10px; background-color: #FF7F3E;" class="btn btn-light" href="/subjects" role="button">Subjects</a> 
+                </li>
+                <li class="nav-item">
+                  <a style="width: 4cm; margin-bottom: 10px; background-color: #D74B76;" class="btn btn-light" href="/docs" role="button">Documents</a>
+                </li>
+              </ul>
+            </div>
+            <div id="pie-chart-style">
+              <canvas style="height: 7cm" id="pie_chart"></canvas>
+            </div>
+          </div>
+      </div>
+  </div>
+  </div>
+</div>
+
+  <script>
+    // Load a randm image related to switzerland
+    const requestUrl = 'https://api.unsplash.com/search/photos?query="night swiss nature"&client_id=Qz0aVvtxEJKE3gtruilcS314pEl0OnzoHg6PPO3Rxxo&orientation=landscape';
+    const imageToDisplay = document.querySelector('.imageToDisplay');
+    addEventListener('load', async () => {
+      let randomImage = await getNewImage();
+      imageToDisplay.src = randomImage;
+    });
+
+    async function getNewImage() {
+      let randomNumber = Math.floor(Math.random() * 10);
+      return fetch(requestUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          let allImages = data.results[randomNumber];
+          return allImages.urls.regular;
+        });
+    };
+
+    // Pie Chart
+    const pie_chart = document.getElementById('pie_chart').getContext("2d");;
+    let classifications_ = {{classifications|tojson}};
+    let counts_ = {{counts|tojson}};
+    var chartId = new Chart(pie_chart, {
+    type: 'pie',
+    data: {
+    labels: classifications_,
+    datasets: [{
+        label: "Classifications of Exams by Percentages (Last 20)",
+        data: counts_,
+        hoverOffset: 5
+    }],
+    },
+    options: {
+    responsive: false,
+    },
+    });
+</script>
+{% endblock %}

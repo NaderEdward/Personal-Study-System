@@ -1,0 +1,40 @@
+
+{% extends "layout.html" %}
+
+{% block title %}
+    Documents
+{% endblock %}
+
+{% block main %}
+{% if new_document %}
+<div class="doc">
+    <div id="file_name">
+        <h5 name="doc_name">Document: <strong>{{doc_name}}</strong></h5>
+    </div>
+    <div style="margin-top: 2cm;">     
+        <form action="/docs" method="post" class="row g-3"> 
+            <textarea class="doc_div" name="edited_txt" placeholder="Type something here..."></textarea> 
+            <input class='btn btn-dark save_btn' type="submit" value="Save changes"> 
+        </form> 
+    </div>
+    <div style="margin-top: 0.5cm;">
+        <a class="btn btn-dark" href="/docs">Go back to documents</a>
+    </div>
+</div>
+{% else %}
+<div class="doc">
+    <div id="file_name">
+        <h5 name="doc_name">Document: <strong>{{doc_name}}</strong></h5>
+    </div>
+    <div style="margin-top: 2cm;">     
+        <form action="/docs" method="post" class="row g-3"> 
+            <textarea class="doc_div" name="edited_txt">{{doc}}</textarea> 
+            <input class='btn btn-dark save_btn' type="submit" value="Save changes"> 
+        </form> 
+    </div>
+    <div style="margin-top: 0.5cm;">
+        <a class="btn btn-dark" href="/docs">Go back to documents</a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

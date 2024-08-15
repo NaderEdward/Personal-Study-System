@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Select Document
+{% endblock %}
+
+{% block main %}
+<div class="open_doc_div">
+    <form action="/docs" method="post" class="row g-3">
+        <div id="new_doc_div" class="col-auto">
+            <label class="form-item" style="margin-left: 0.5cm;">New Document</label>
+            <input autocomplete="off" name="doc_name" type="text" class="form-control form-item">
+            <button type="submit" class="btn btn-dark mb-3 form-item">Make New Document</button>
+        </div>
+    </form>
+
+    <form action="/docs" method="post" style="margin-top: 0.5cm;">
+        <div id="select_doc_div" class="col-auto">
+            <label style="margin-left: 0.5cm;" class="form-label form-item">Open Document</label>
+            <select class="form-select form-item" name="selected_doc_name" type="text" class="form-control">
+                <option selected disabled>Documents</option>
+                {% for doc in doc_names %}
+                <option style= "color: rgb(255, 255, 255);" value="{{doc[0]}}">{{doc[0]}}</option>
+                {% endfor %}
+            </select>
+            <button style="margin-left: 0.35cm;" type="submit" class="btn btn-dark mb-3 form-item" name="action">Open Document</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

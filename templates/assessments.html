@@ -1,0 +1,176 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Assesments
+{% endblock %}
+
+{% block main %}
+<div class="assessment_sidebar">
+    <form action="/assessments" method="post" style="padding-top: 0.5cm;">
+        <div class="col-auto">
+            <label class="form-label form-item" style="font-size: large;">Select subject</label>
+            <select style="margin-left: 1.4cm;" class="form-select form-control form-item assessment_field" name="subject" type="text">
+                <option selected disabled>Subject</option>
+                {% for subject in subjects %}
+                <option style= "color: rgb(255, 255, 255);" value="{{subject}}">{{subject}}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-light mb-3 form-item assessment_field" name="action">Get assessments</button>
+        </div>
+    </form>
+    <h5 style="font-weight: bold;color: #212429; margin-left: -0.3cm; font-size: medium;">⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</h5>
+    <form action="/assessments" method="post" class="row g-3">
+        <div id="new_assessment_div" class="col-auto form-item">
+            <label class="form-label form-item">Add Assessment</label>
+            <select class="form-select form-control form-item assessment_field" name="assessment_type" type="text">
+                <option selected disabled>Assessment Type</option>
+                <option style= "color: rgb(255, 255, 255);" value="exam">Exam</option>
+                <option style= "color: rgb(255, 255, 255);" value="quiz"> Quiz</option>
+            </select>
+            <select class="form-select form-control form-item assessment_field" name="new_subject" type="text">
+                <option selected disabled>Subject</option>
+                {% for subject in subjects %}
+                <option style= "color: rgb(255, 255, 255);" value="{{subject}}">{{subject}}</option>
+                {% endfor %}
+            </select>
+
+            <input autocomplete="off" name="new_grade" type="text" class="form-control form-item assessment_field" placeholder="Grade">
+            <input autocomplete="off" name="new_mistakes" type="text" class="form-control form-item assessment_field" placeholder="Mistakes">
+            <input autocomplete="off" name="new_info" type="text" class="form-control form-item assessment_field" placeholder="Information">
+
+            <button type="submit" class="btn btn-light mb-3 form-item">Add</button>
+            <h5 style="font-weight: bold; color: #212429; margin-left: -1.5cm;">⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</h5>
+            <label class="form-label form-item">Find Assessment by Date</label>
+            <input autocomplete="off" name="find_assessment_date" type="text" class="form-control form-item assessment_field" placeholder="YYYY-MM-DD">
+            <button type="submit" class="btn btn-light mb-3 form-item" name="action" value="find_assessment">Find Assessment</button>
+            <h5 style="font-weight: bold; color: #212429; margin-left: -1.5cm;">⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</h5>
+            <label class="form-label form-item">Find Assessment by Information</label>
+            <input autocomplete="off" name="find_assessment_info" type="text" class="form-control form-item assessment_field">
+            <button type="submit" class="btn btn-light mb-3 form-item" name="action" value="find_assessment">Find Assessment</button>
+        </div>
+    </form>
+</div>
+<div class="assessments-table">
+    <h4 style="padding: 0.5cm;">{{subject_title}}</h4>
+    <h5 class="form-label form-item">Exams</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Percent</th>
+                <th scope="col">Mistakes</th>
+                <th scope="col">Info</th>
+                <th scope="col">Date</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for exam in exams %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ exam["subject"] }}</td>
+                <td>{{ exam["grade"] }}</td>
+                <td>{{ exam["percent"] }}%</td>
+                <td>{{ exam["mistakes"] }}</td>
+                <td>{{ exam["info"] }}</td>
+                <td>{{ exam["date"] }}</td>
+                <td>
+                <div class="btn-group dropup" id="reset">
+                    <button class="btn-close" type="button" data-bs-toggle="dropdown" aria-label="Close" style="margin-top: -0.15cm; margin-bottom: -0.7cm;"></button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item"><button title="{{exam['subject']}}" id="remove" value="{{exam['subject']}},{{exam['date']}},{{exam['info']}},Exam" type="button" class="btn btn-dark" style="margin-left: -0.35cm;">Delete</button></a></li>
+                      <li><a class="dropdown-item" href="#">Cancel</a></li>
+                    </ul>
+                  </div>
+                </td>
+                <!--<td><button title="{{exam['subject']}}" id="remove" value="{{exam['subject']}},{{exam['date']}},{{exam['info']}},Exam" type="button" class="btn-close" aria-label="Close"></button></td>-->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h5 class="form-label form-item">Quizes</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Percent</th>
+                <th scope="col">Mistakes</th>
+                <th scope="col">Info</th>
+                <th scope="col">Date</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quiz in quizes %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ quiz["subject"] }}</td>
+                <td>{{ quiz["grade"] }}</td>
+                <td>{{ quiz["percent"] }}%</td>
+                <td>{{ quiz["mistakes"] }}</td>
+                <td>{{ quiz["info"] }}</td>
+                <td>{{ quiz["date"] }}</td>
+                <td>
+                <div class="btn-group dropup" id="reset">
+                    <button class="btn-close" type="button" data-bs-toggle="dropdown" aria-label="Close" style="margin-top: -0.15cm; margin-bottom: -0.7cm;"></button>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item"><button title="{{quiz['subject']}}" id="remove" value="{{quiz['subject']}},{{quiz['date']}},{{quiz['info']}},Quiz" type="button" class="btn btn-dark" style="margin-left: -0.35cm;">Delete</button></a></li>
+                    <li><a class="dropdown-item" href="#">Cancel</a></li>
+                    </ul>
+                </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="assessments_stats">
+        <div class="col-auto">
+            <canvas id="line_chart"></canvas>
+        </div>
+    </div>
+</div>
+
+
+<!-----------------------JS-------------------------->
+<script type="text/javascript">
+// Line Chart
+const line_chart = document.getElementById('line_chart');
+/* ------- */
+let line_chart_data = {{values|tojson}};
+let line_chart_subjects = {{subjects_percent|tojson}}
+/* ------- */
+let data_count = Array.apply(null, Array(line_chart_data.length))
+    .map(function (y, i) { return i; });
+/* ------- */
+new Chart(line_chart, {
+type: 'line',
+data: {
+labels: line_chart_subjects,
+datasets: [{
+    label: 'Exam Percentages',
+    data: line_chart_data,
+    borderWidth: 1
+}]
+},
+});
+// Remove button
+button = document.getElementById("remove")
+
+button.addEventListener('click', () => {
+    var r = new XMLHttpRequest();
+    r.open("POST", "http://127.0.0.1:5000/remove_assessment", true);
+    r.onreadystatechange = function () {
+        if (r.readyState != 4 || r.status != 200) return;
+        //alert("Success: " + r.responseText);
+        console.log("sent");
+    };
+    // Send data in below way from JS
+    r.send(JSON.stringify({"input": button.getAttribute("value")}));
+    location.replace(`http://127.0.0.1:5000/assessments?selected_subject=${button.getAttribute("title")}`); // Reload page after removing assessment
+});
+</script>
+{% endblock %}
