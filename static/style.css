@@ -1,0 +1,170 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
+.shadows-into-light-regular {
+    font-family: "Shadows Into Light", cursive;
+    font-weight: 600;
+    font-style: normal;
+}
+.highlight {
+    background: url(//s2.svgbox.net/pen-brushes.svg?ic=brush-1&color=ffff43);
+}
+/* General CSS*/
+body {
+    background-color: #948979;
+}
+#reset {
+    padding-top: .1cm; padding-bottom: .5cm; padding-left: .1cm; width: 3cm; list-style: none;
+}
+.my_name {
+    margin-left: 25%; padding-bottom: 0.2cm; margin-top: -0.5cm;
+}
+a:link {
+    text-decoration: none;
+}
+a:visited {
+    text-decoration: none;
+}
+.center {
+    height: 0cm; margin-left: 500px;
+}
+ul {
+    position: sticky;
+}
+.subtitle{
+    text-align: center;
+}
+.error{
+    color: rgb(0, 0, 0); padding: 20px; width: 15cm; margin: auto; background-color: rgba(255, 255, 255, 0.875); text-align: center;
+}
+.help_page {
+    padding-top: 0.5cm; border-radius: 25px; margin-left: 10cm; margin-top: 2cm; background-color: #212429; width: 20cm; height: 9cm;
+}
+.link_btn {
+    margin-right: 0.25cm; width:3cm; height: 1cm; border-radius: 10px;
+}
+.form-item {
+    margin-bottom: 10px; margin-left: -10px;
+}
+.row:after {
+    content: ""; display: table; clear: both;
+}
+
+/* Docs Page */
+#new_doc_div {
+    width: 5.17cm; font-size: large; margin-left: 5cm;
+}
+#select_doc_div {
+    width: 5cm; align-content: center; font-size: large; margin-left: 5cm;
+}
+.open_doc_div {
+    margin-top: 5cm; background-color: #3C5B6F; width: 15cm; margin-left: 30%; border-radius: 20px;
+}
+#file_name {
+    background-color: #3C5B6F; font-size: large; border-radius: 10px; height: 0.75cm; max-width: 50%; margin-left: 7cm;
+}
+.doc_div {
+    background-color: azure; width: 26cm; color: black; margin-left: 1cm; border-radius: 10px; height: auto; margin-top: -1cm;
+}
+.doc {
+    margin-left: 5cm; background-color: grey; margin-top: 5cm; width: 30cm; padding: 1cm; border-radius: 20px; text-align: center;
+}
+.save_btn {
+    width: 5cm; margin-left: 11.7cm;
+}
+.imageToDisplay {
+     max-width: 14.5cm; height: 8cm; border-radius: 35px; margin-left: 0.15cm;   
+}
+/* Home Page */
+.home_page {
+    margin-left: 225px; margin-top: 3cm; padding: 2cm; height: 14cm; width: 28cm; background-color: #8adeff; border: 3px solid white; border-radius: 35px;
+}
+.small_div_home {
+    width: fit-content; border-radius: 35px; margin-right: 0.5cm; margin-left: 3cm;
+}
+.large_div_home {
+    width: 30cm; height: 8cm; border-radius: 35px; background-color: #3C5B6F; border: 2px solid #212429; margin-top: 0.5cm;
+}
+.container {
+    position: relative; color: white; margin-left: -0.000000000000001cm;
+}
+.bottom-left-text {
+    margin-left: 0.6cm; margin-bottom: 0.1cm; position: absolute; bottom: 8px; left: 16px; background-color: rgba(255, 255, 255); width: fit-content; padding: 0.25cm; border-radius: 10px; color: black;
+}
+.bottom-right-text {
+    margin-left: 0.6cm; margin-bottom: 0.1cm; position: absolute; bottom: 8px; left: 125px; background-color: rgba(255, 255, 255); width: fit-content; padding: 0.25cm; border-radius: 10px; color: black;
+}
+.top-left { 
+    position: absolute; top: 8px; left: 16px; margin-left: 0.8cm; margin-top: 0.1cm;
+}
+#fact {
+    margin-left: 0.5cm; padding: 0.25cm; height: 7cm; width: 25%; float: left; font-size: medium; background-color: rgba(255, 255, 255, 0.8); color: black; border-radius: 35px; margin-top: 0.5cm; border: 2px solid #212429
+}
+#background_home {
+    margin-top: 2cm; margin-left: 4cm; background-color: #EB6440; width: 32cm; padding: 0.5cm; border-radius: 40px; border: 3px solid #212429;
+}
+.to_do_list {
+    float: left; border-radius: 35px; background-color: #86AB89; border: 2px solid #212429;
+}
+#pages_tab {
+    margin-left: 9cm; margin-top: 0.5cm; background-color: #212429; width: 5cm; border-radius: 35px; padding: 0.25cm; height: 7cm;
+}
+#pie-chart-style {
+    height: 7.25cm; margin-top: -7.15cm; margin-left: 15.5cm; width: 45%; float: left; font-size: medium; background-color: rgba(255, 255, 255, 0.8); color: black; border-radius: 35px;
+}
+.todo_field {
+    width: 3.5cm; 
+}
+.to_do_sidebar {
+    margin-top: -0.5cm; margin-left: 0.25cm; background-color: #212429; width: 4cm; height: 6cm; padding: 0.5cm; border-radius: 15px;
+}
+/* Hover Home Page*/
+#pages_tab:hover {
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+.bottom-left-text:hover {
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+}
+.bottom-right-text:hover {
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+}
+#fact:hover {
+    box-shadow: 0 0 15px rgb(0, 0, 0);
+}
+#pie-chart-style:hover {
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+/* Subjects Page */
+.subjects_page {
+    margin-top: 5cm; background-color: grey;
+}
+.topic_list_item {
+    text-decoration: underline; color: #212429; list-style: none; margin-left: -1cm; padding-top: 0.2cm;
+}
+.topic_list {
+    width: 5cm; margin-left: -0.25cm; border-radius: 20px; margin-top: 0.25cm; background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Assessments Page */
+.assessment_sidebar {
+    width: 20%; float: left; background-color: #3C5B6F; border-radius: 20px;  margin-top: 2cm; text-align: center; margin-left: 0.75cm; margin-bottom: 0.5cm;
+}
+#new_assessment_div {
+    width: 5.17cm; font-size: large; margin-left: 1.75cm;
+}
+.assessments-table {
+    width: 60%; float: left; margin-left: 1cm; margin-top: 2cm; border-radius: 20px; padding: 1cm; background-color: #212429;
+}
+.assessment_field {
+    width: 5cm;
+}
+.assessments_stats{
+    margin-top: 2cm;
+}
+#line_chart {
+    margin-left: calc(0%); width: 60%; height: 60%; margin-top: 2cm; background-color: rgba(255, 255, 255, 0.8); border-radius: 20px; padding: 0.25cm; 
+}
+#line_chart:hover {
+    box-shadow: 0 0 5px rgb(175, 175, 175);;
+    transform: translate(0, -3px);
+}
