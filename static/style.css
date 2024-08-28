@@ -51,29 +51,29 @@ ul {
 }
 
 /* Docs Page */
-#new_doc_div {
-    width: 5.17cm; font-size: large; margin-left: 5cm;
-}
-#select_doc_div {
-    width: 5cm; align-content: center; font-size: large; margin-left: 5cm;
-}
-.open_doc_div {
-    margin-top: 5cm; background-color: #3C5B6F; width: 15cm; margin-left: 30%; border-radius: 20px;
-}
 #file_name {
-    background-color: #3C5B6F; font-size: large; border-radius: 10px; height: 0.75cm; max-width: 50%; margin-left: 7cm;
+    background-color: #3C5B6F; font-size: large; border-radius: 20px; padding: 0.5cm; width: fit-content; margin-left: 35%; height: 1.25cm;
 }
 .doc_div {
-    background-color: azure; width: 26cm; color: black; margin-left: 1cm; border-radius: 10px; height: auto; margin-top: -1cm;
+    background-color: rgb(226, 226, 226); width: 25.5cm; color: black; border-radius: 10px; height: 12cm; margin-top: -1cm;
 }
 .doc {
-    margin-left: 5cm; background-color: grey; margin-top: 5cm; width: 30cm; padding: 1cm; border-radius: 20px; text-align: center;
+    margin-left: 6.5cm; background-color: grey; margin-top: 1cm; width: 27.5cm; padding: 0.5cm; border-radius: 30px; text-align: center;
 }
-.save_btn {
-    width: 5cm; margin-left: 11.7cm;
+.docs-bar {
+    margin-top: 1.5cm; background-color: #3C5B6F; padding: 0.5cm; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; width: 17cm;
 }
-.imageToDisplay {
-     max-width: 14.5cm; height: 8cm; border-radius: 35px; margin-left: 0.15cm;   
+.docs-option {
+    width: 8cm;
+}
+.docs-field {
+    width: 4cm;
+}
+.docs-func {
+    padding: 0.1cm; background-color: #212429; border-radius: 10px; width: 8cm; 
+}
+.selecting-doc {
+    margin-left: 42%; background-color: #3C5B6F; margin-top: 5cm; padding: 1cm; border-radius: 20px; text-align: center; width: fit-content;
 }
 /* Home Page */
 .home_page {
@@ -117,6 +117,9 @@ ul {
 }
 .to_do_sidebar {
     margin-top: -0.5cm; margin-left: 0.25cm; background-color: #212429; width: 4cm; height: 6cm; padding: 0.5cm; border-radius: 15px;
+}
+.imageToDisplay {
+    max-width: 14.5cm; height: 8cm; border-radius: 35px; margin-left: 0.15cm;   
 }
 /* Hover Home Page*/
 #pages_tab:hover {
@@ -167,4 +170,24 @@ ul {
 #line_chart:hover {
     box-shadow: 0 0 5px rgb(175, 175, 175);;
     transform: translate(0, -3px);
+}
+
+/* AI page */
+.AI-block {
+    width: 85%; margin-left: 2.8cm; margin-top: 2cm; border-radius: 20px; padding: 1cm; background-color: #3C5B6F;
+}
+.AI-message {
+    padding: 0.5cm; background-color:#948979; border-radius: 20px;
+}
+#query {
+    width: 50%; margin-bottom: 0.3cm; margin-left: 25%;
+}
+#query-label {
+    font-size: large; margin-bottom: 0.25cm;
+}
+.submit-query {
+    margin-bottom: 0.5cm; width: 4cm;
+}
+#infoAI {
+    margin-left: 1cm; font-size: medium; 
 }
