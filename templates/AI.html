@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    AI Assistant
+{% endblock %}
+
+{% block main %}
+<div class="AI-block text-center">
+    <!------------------------------>
+    <div style="margin-bottom: 0.5cm;">
+        <a style="font-size: medium;" tabindex="0" class="btn btn-lg btn-dark" role="button" data-bs-placement="left" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="How to reset" data-bs-content="RESET: Type RESET *only* to reset the AI's context and the whole conversation.">Usage: RESET</a>
+        <a id="infoAI" tabindex="0" class="btn btn-lg btn-dark" role="button" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="focus" data-bs-title="How to exit" data-bs-content="EXIT:  Type EXIT *only* to reset the AI's context and redirect to the home page.">Usage: EXIT</a>
+        <a id="infoAI" tabindex="0" class="btn btn-lg btn-dark" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="How to record queries" data-bs-content="RECORD: Either type RECORD *only* to record the next 5 seconds and use it as the query, or type RECORD followed by a number to record that many seconds and use them as the query.">Usage: RECORD</a>
+    </div>
+    <!------------------------------>
+    <form action="/AI" method="post">
+        <div class="form-group">
+            <label for="inputQuestion" id="query-label">Enter Queries</label>
+            <input type="text" class="form-control" name="query" id="query" autocomplete="off">
+        </div>
+        <button type="submit" class="btn btn-dark submit-query">Submit</button>
+    </form>
+    {% for message in chat_logs %}
+    <h6 style='{{styles[ loop.index ]}}' class="AI-message">{{message}}</h6>
+    {% endfor %}
+</div>
+<script>
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    const popover = new bootstrap.Popover('.popover-dismiss', {
+        trigger: 'focus'
+    })
+</script>
+{% endblock %}

@@ -1,28 +1,28 @@
 {% extends "layout.html" %}
 
 {% block title %}
-Subjects
+    Subjects
 {% endblock %}
 
 {% block main %}
 <div class="assessment_sidebar">
-<form action="/subjects" method="post" style="padding-top: 0.5cm;">
-  <div class="col-auto">
-      <label class="form-label form-item" style="font-size: medium;">Select subject</label>
-      <select style="margin-left: 1.5cm;" class="form-select form-control form-item assessment_field" name="selected_subject" type="text">
-          <option selected disabled>Subject</option>
-          {% for subject in subjects %}
-          <option style= "color: rgb(255, 255, 255);" value="{{subject}}">{{subject}}</option>
-          {% endfor %}
-      </select>
-      <button type="submit" class="btn btn-light mb-3 assessment_field" name="action">Get Information</button>
-  </div>
+  <form action="/subjects" method="post" style="padding-top: 0.5cm;">
+      <div class="col-auto">
+          <label class="form-label form-item" style="font-size: medium;">Select subject</label>
+          <select style="margin-left: 1.5cm;" class="form-select form-control form-item assessment_field" name="selected_subject" type="text">
+              <option selected disabled>Subject</option>
+              {% for subject in subjects %}
+              <option style= "color: rgb(255, 255, 255);" value="{{subject}}">{{subject}}</option>
+              {% endfor %}
+          </select>
+          <button type="submit" class="btn btn-light mb-3 assessment_field" name="action">Get Information</button>
+      </div>
     <h5 style="font-weight: bold; color: #212429; margin-left: -0.3cm; font-size: medium;">⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</h5>  
     <div id="new_assessment_div" class="col-auto form-item">
         <label style="margin-top:-0.25cm; font-size: medium;" class="form-label">Add Subject</label>
-    
+
         <input style="margin-left:-0.25cm; margin-bottom: 10px;" autocomplete="off" name="new_name" type="text" class="form-control assessment_field" placeholder="Subject Name">
-    
+
         <button style="margin-left:-0.7cm;" type="submit" class="btn btn-light mb-3 assessment_field">Add</button>
     </div>
     <h5 style="margin-top: -0.25cm; font-weight: bold; color: #212429; margin-left: -0.3cm; font-size: medium;">⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</h5>
@@ -34,219 +34,225 @@ Subjects
             <option style= "color: rgb(255, 255, 255);" value="{{subject}}">{{subject}}</option>
             {% endfor %}
         </select>
-        <button type="submit" class="btn btn-light mb-3 form-item assessment_field" name="action">Remove Subject</button>
+        <div class="btn-group dropup assessment_field" style="margin-bottom: 0.25cm; margin-left: -0.25cm;">
+          <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Remove Subject
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item"><button style="width: 2cm;" type="submit" class="btn btn-dark form-item assessment_field" name="action">Remove</button></a></li>
+            <li><a class="dropdown-item" href="#">Cancel</a></li>
+          </ul>
+        </div>
     </div>
     <h5 style="margin-top: -0.25cm; font-weight: bold; color: #212429; margin-left: -0.3cm; font-size: medium;">⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</h5>
-    <label style="font-size: medium;" class="form-label">Add Topic</label>
-  <div>
-    <select style="margin-left: 1.4cm;" class="form-select form-control form-item assessment_field" name="new_topic_subject" type="text">
-        <option selected disabled>Subject</option>
-        {% for subject in subjects %}
-        <option style= "color: rgb(255, 255, 255);" value="{{subject}}">{{subject}}</option>
-        {% endfor %}
-    </select>
-    <input style="margin-left: 1.4cm;" autocomplete="off" name="new_topic" type='text' id='input' class="assessment_field form-control form-item" placeholder="Topic"/>
-    <input style="margin-left: 1.4cm;" autocomplete="off" name="new_difficulty" type='text' id='input' class="assessment_field form-control form-item" placeholder="Difficulty"/>
-    <input style="margin-left: 1.4cm;" autocomplete="off" name="new_strength" type='text' id='input' class="assessment_field form-control form-item" placeholder="Strength"/>
-    <button type="submit" class="btn btn-light mb-3 assessment_field form-item">Add</button>
-  </div>
-<h5 style="margin-top: -0.25cm; font-weight: bold; color: #212429;">⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</h5>
-<label style="font-size: medium;" class="form-label">Edit Topic</label>
-<div>
-  <select style="margin-left: 1.4cm;" class="form-select form-control form-item assessment_field" name="edit_topic_subject" type="text">
-      <option selected disabled>Subject</option>
-      {% for subject in subjects %}
-      <option style= "color: rgb(255, 255, 255);" value="{{subject}}">{{subject}}</option>
-      {% endfor %}
-  </select>
-  <input style="margin-left: 1.4cm;" autocomplete="off" name="edit_topic" type='text' id='input' class="assessment_field form-control form-item" placeholder="Topic"/>
-  <input style="margin-left: 1.4cm;" autocomplete="off" name="edit_difficulty" type='text' id='input' class="assessment_field form-control form-item" placeholder="Difficulty"/>
-  <input style="margin-left: 1.4cm;"autocomplete="off" name="edit_strength" type='text' id='input' class="assessment_field form-control form-item" placeholder="Strength"/>
-  <button type="submit" class="btn btn-light mb-3 assessment_field form-item">Save Changes</button>
-</div>
-</form>
-</div>
-<div class="assessments-table">
-<h4 style="padding: 0.5cm;">{{subject}}</h4>
-<div class="accordion" id="accordion">
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        <strong>Topics</strong>
-      </button>
-    </h2>
-    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordion">
-      <div class="accordion-body">
-        <div class="topics-table" style="padding: 0.1cm; width: 20cm;">
-          <h5 class="form-label form-item">Topics</h5>
-          <table class="table table-striped">
-              <thead>
-                  <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Topic</th>
-                      <th scope="col">Difficulty</th>
-                      <th scope="col">Strength</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for topic in topics %}
-                  <tr>
-                      <th scope="row">{{ loop.index }}</th>
-                      <td>{{ topic["topic"] }}</td>
-                      <td>{{ topic["difficulty"] }}</td>
-                      <td>{{ topic["strength"] }}</td>
-                      <td>
-                        <div class="btn-group dropup" id="reset">
-                            <button class="btn-close" type="button" data-bs-toggle="dropdown" aria-label="Close" style="margin-top: -0.15cm; margin-bottom: -0.7cm;"></button>
-                            <ul class="dropdown-menu">
-                            <li><a class="dropdown-item"><button title="{{subject}}" id="remove" value="{{subject}},{{topic['topic']}}" type="button" class="btn btn-dark" style="margin-left: -0.35cm;">Delete</button></a></li>
-                            <li><a class="dropdown-item" href="#">Cancel</a></li>
-                            </ul>
-                        </div>
-                        </td>
-                  </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
+        <label style="font-size: medium;" class="form-label">Add Topic</label>
+      <div>
+        <select style="margin-left: 1.4cm;" class="form-select form-control form-item assessment_field" name="new_topic_subject" type="text">
+            <option selected disabled>Subject</option>
+            {% for subject in subjects %}
+            <option style= "color: rgb(255, 255, 255);" value="{{subject}}">{{subject}}</option>
+            {% endfor %}
+        </select>
+        <input style="margin-left: 1.4cm;" autocomplete="off" name="new_topic" type='text' id='input' class="assessment_field form-control form-item" placeholder="Topic"/>
+        <input style="margin-left: 1.4cm;" autocomplete="off" name="new_difficulty" type='text' id='input' class="assessment_field form-control form-item" placeholder="Difficulty"/>
+        <input style="margin-left: 1.4cm;" autocomplete="off" name="new_strength" type='text' id='input' class="assessment_field form-control form-item" placeholder="Strength"/>
+        <button type="submit" class="btn btn-light mb-3 assessment_field form-item">Add</button>
       </div>
+    <h5 style="margin-top: -0.25cm; font-weight: bold; color: #212429;">⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</h5>
+    <label style="font-size: medium;" class="form-label">Edit Topic</label>
+    <div>
+      <select style="margin-left: 1.4cm;" class="form-select form-control form-item assessment_field" name="edit_topic_subject" type="text">
+          <option selected disabled>Subject</option>
+          {% for subject in subjects %}
+          <option style= "color: rgb(255, 255, 255);" value="{{subject}}">{{subject}}</option>
+          {% endfor %}
+      </select>
+      <input style="margin-left: 1.4cm;" autocomplete="off" name="edit_topic" type='text' id='input' class="assessment_field form-control form-item" placeholder="Topic"/>
+      <input style="margin-left: 1.4cm;" autocomplete="off" name="edit_difficulty" type='text' id='input' class="assessment_field form-control form-item" placeholder="Difficulty"/>
+      <input style="margin-left: 1.4cm;"autocomplete="off" name="edit_strength" type='text' id='input' class="assessment_field form-control form-item" placeholder="Strength"/>
+      <button type="submit" class="btn btn-light mb-3 assessment_field form-item">Save Changes</button>
     </div>
+  </form>
   </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        <strong>Recent Assessments</strong>
-      </button>
-    </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordion">
-      <div class="accordion-body">
-        <div style="padding: 0.1cm; width: 20cm;">
-          <h5 class="form-label form-item">Exams</h5>
-          <table class="table table-striped">
-              <thead>
-                  <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Subject</th>
-                      <th scope="col">Grade</th>
-                      <th scope="col">Percent</th>
-                      <th scope="col">Mistakes</th>
-                      <th scope="col">Info</th>
-                      <th scope="col">Date</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for exam in exams %}
-                  <tr>
-                      <th scope="row">{{ loop.index }}</th>
-                      <td>{{ exam["subject"] }}</td>
-                      <td>{{ exam["grade"] }}</td>
-                      <td>{{ exam["percent"] }}%</td>
-                      <td>{{ exam["mistakes"] }}</td>
-                      <td>{{ exam["info"] }}</td>
-                      <td>{{ exam["date"] }}</td>
-                  </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
-          <h5 class="form-label form-item">Quizes</h5>
-          <table class="table table-striped">
-              <thead>
-                  <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Subject</th>
-                      <th scope="col">Grade</th>
-                      <th scope="col">Percent</th>
-                      <th scope="col">Mistakes</th>
-                      <th scope="col">Info</th>
-                      <th scope="col">Date</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for quiz in quizes %}
-                  <tr>
-                      <th scope="row">{{ loop.index }}</th>
-                      <td>{{ quiz["subject"] }}</td>
-                      <td>{{ quiz["grade"] }}</td>
-                      <td>{{ quiz["percent"] }}%</td>
-                      <td>{{ quiz["mistakes"] }}</td>
-                      <td>{{ quiz["info"] }}</td>
-                      <td>{{ quiz["date"] }}</td>
-                  </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
-      </div>
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        <strong>Weaknesses</strong>
-      </button>
-    </h2>
-    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordion">
-      <div class="accordion-body">
-        <div class="topics-table" style="padding: 0.1cm; width: 20cm;">
-          <div class="row">
-            <div class="col-4">
-              <table class="table table-striped" style="width: 8cm;">
+  <div class="assessments-table">
+    <h4 style="padding: 0.5cm;">{{subject}}</h4>
+    <div class="accordion" id="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <strong>Topics</strong>
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordion">
+          <div class="accordion-body">
+            <div class="topics-table" style="padding: 0.1cm; width: 20cm;">
+              <h5 class="form-label">Topics</h5>
+              <table class="table table-striped">
                   <thead>
                       <tr>
                           <th scope="col">#</th>
-                          <th scope="col">Topic Strength: Moderate</th>
+                          <th scope="col">Topic</th>
+                          <th scope="col">Difficulty</th>
+                          <th scope="col">Strength</th>
                       </tr>
                   </thead>
                   <tbody>
-                      {% for topic in gradings["Moderate"] %}
+                      {% for topic in topics %}
                       <tr>
                           <th scope="row">{{ loop.index }}</th>
                           <td>{{ topic["topic"] }}</td>
+                          <td>{{ topic["difficulty"] }}</td>
+                          <td>{{ topic["strength"] }}</td>
+                          <td>
+                            <div class="btn-group dropup" id="reset">
+                                <button class="btn-close" type="button" data-bs-toggle="dropdown" aria-label="Close" style="margin-top: -0.15cm; margin-bottom: -0.7cm;"></button>
+                                <ul class="dropdown-menu">
+                                <li><a class="dropdown-item"><button title="{{subject}}" id="remove" value="{{subject}},{{topic['topic']}}" type="button" class="btn btn-dark" style="margin-left: -0.35cm;">Delete</button></a></li>
+                                <li><a class="dropdown-item" href="#">Cancel</a></li>
+                                </ul>
+                            </div>
+                            </td>
                       </tr>
                       {% endfor %}
                   </tbody>
               </table>
-            </div>
-            <div class="col-4">
-              <table class="table table-striped" style="width: 8cm; margin-left: 4cm;">
-                  <thead>
-                      <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Topic Strength: Weak</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      {% for topic in gradings["Weak"] %}
-                      <tr>
-                          <th scope="row">{{ loop.index }}</th>
-                          <td>{{ topic["topic"] }}</td>
-                      </tr>
-                      {% endfor %}
-                  </tbody>
-              </table>
-            </div>
+          </div>
         </div>
       </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <strong>Recent Assessments</strong>
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordion">
+          <div class="accordion-body">
+            <div style="padding: 0.1cm; width: 20cm;">
+              <h5 class="form-label form-item">Exams</h5>
+              <table class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Subject</th>
+                          <th scope="col">Grade</th>
+                          <th scope="col">Percent</th>
+                          <th scope="col">Mistakes</th>
+                          <th scope="col">Info</th>
+                          <th scope="col">Date</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for exam in exams %}
+                      <tr>
+                          <th scope="row">{{ loop.index }}</th>
+                          <td>{{ exam["subject"] }}</td>
+                          <td>{{ exam["grade"] }}</td>
+                          <td>{{ exam["percent"] }}%</td>
+                          <td>{{ exam["mistakes"] }}</td>
+                          <td>{{ exam["info"] }}</td>
+                          <td>{{ exam["date"] }}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+              <h5 class="form-label form-item">Quizes</h5>
+              <table class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Subject</th>
+                          <th scope="col">Grade</th>
+                          <th scope="col">Percent</th>
+                          <th scope="col">Mistakes</th>
+                          <th scope="col">Info</th>
+                          <th scope="col">Date</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for quiz in quizes %}
+                      <tr>
+                          <th scope="row">{{ loop.index }}</th>
+                          <td>{{ quiz["subject"] }}</td>
+                          <td>{{ quiz["grade"] }}</td>
+                          <td>{{ quiz["percent"] }}%</td>
+                          <td>{{ quiz["mistakes"] }}</td>
+                          <td>{{ quiz["info"] }}</td>
+                          <td>{{ quiz["date"] }}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <strong>Weaknesses</strong>
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordion">
+          <div class="accordion-body">
+            <div class="topics-table" style="padding: 0.1cm; width: 20cm;">
+              <div class="row">
+                <div class="col-4">
+                  <table class="table table-striped" style="width: 8cm;">
+                      <thead>
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Topic Strength: Moderate</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for topic in gradings["Moderate"] %}
+                          <tr>
+                              <th scope="row">{{ loop.index }}</th>
+                              <td>{{ topic["topic"] }}</td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+                </div>
+                <div class="col-4">
+                  <table class="table table-striped" style="width: 8cm; margin-left: 4cm;">
+                      <thead>
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Topic Strength: Weak</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for topic in gradings["Weak"] %}
+                          <tr>
+                              <th scope="row">{{ loop.index }}</th>
+                              <td>{{ topic["topic"] }}</td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+                </div>
+            </div>
+          </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-</div>  
+  </div>  
 </div>
 <script>
-// Remove button
-button = document.getElementById("remove")
+  // Remove button
+  button = document.getElementById("remove")
 
-button.addEventListener('click', () => {
-  var r = new XMLHttpRequest();
-  r.open("POST", "http://127.0.0.1:5000/remove_topic", true);
-  r.onreadystatechange = function () {
-      if (r.readyState != 4 || r.status != 200) return;
-      //alert("Success: " + r.responseText);
-      console.log("sent");
-  };
-  // Send data in below way from JS
-  r.send(JSON.stringify({"input": button.getAttribute("value")}));
-  location.replace(`http://127.0.0.1:5000/subjects?selected_subject=${button.getAttribute("title")}{ method: 'POST'}`); // Reload page after removing assessment
-});
+  button.addEventListener('click', () => {
+      var r = new XMLHttpRequest();
+      r.open("POST", "http://127.0.0.1:5000/remove_topic", true);
+      r.onreadystatechange = function () {
+          if (r.readyState != 4 || r.status != 200) return;
+      };
+      // Send data in below way from JS
+      r.send(JSON.stringify({"input": button.getAttribute("value")}));
+      location.replace(`http://127.0.0.1:5000/subjects?selected_subject=${button.getAttribute("title")}{ method: 'POST'}`); // Reload page after removing assessment
+  });
 </script>
 {% endblock %}
