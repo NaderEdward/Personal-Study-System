@@ -1,3 +1,7 @@
 pip install Flask-Session
+pip install Flask
 pip install requests
 pip install collections
+pip install cs50
+pip install google-generativeai
+pip install assemblyai
