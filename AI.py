@@ -131,7 +131,7 @@ def format_message(message):
     style = ""
     new_message = ""
     if "AI" in message:
-        style = "background-color: #50727B; text-align: right;"
+        style = "background-color: #50727B; text-align: left;"
     else:
         style = "background-color: #78A083; text-align: left;"
     new_message = message.replace("*", " ").replace(".", ".\n")
