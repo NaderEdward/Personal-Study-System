@@ -143,6 +143,8 @@ def assessments():
         quizes_5 = get_reverse_list(reversed(db.execute("SELECT * FROM quizes")))[:5]
         exams_5 = get_reverse_list(reversed(db.execute("SELECT * FROM exams")))[:5]
         percentages, subjects_percent = get_percentages()
+        num_exams = len(exams_5)
+        num_quizes = len(quizes_5)
         return render_template(
             "assessments.html",
             subjects=subjects_list,
@@ -150,6 +152,8 @@ def assessments():
             exams=exams_5,
             values=percentages,
             subjects_percent=subjects_percent,
+            num_exams=num_exams,
+            num_quizes=num_quizes,
         )
     else:
         try:
@@ -186,6 +190,8 @@ def assessments():
         if selected_subject:
             percentages, subjects_percent = get_percentages(selected_subject)
             quizes, exams = get_assessments(selected_subject)
+            num_exams = len(exams)
+            num_quizes = len(quizes)
             return render_template(
                 "assessments.html",
                 subjects=subjects_list,
@@ -194,6 +200,8 @@ def assessments():
                 values=percentages,
                 subjects_percent=subjects_percent,
                 subject_title=selected_subject,
+                num_exams=num_exams,
+                num_quizes=num_quizes,
             )
         elif remove_assessment:
             db.execute("DELETE FROM exams WHERE info = ?", remove_assessment)
@@ -202,6 +210,8 @@ def assessments():
             return redirect("/assessments")
         elif find_assessment_info:
             quizes, exams = get_assessments(subject=None, info=find_assessment_info)
+            num_exams = len(exams)
+            num_quizes = len(quizes)
             return render_template(
                 "assessments.html",
                 subjects=subjects_list,
@@ -209,9 +219,13 @@ def assessments():
                 exams=exams,
                 values=[],
                 subjects_percent=[],
+                num_exams=num_exams,
+                num_quizes=num_quizes,
             )
         elif find_assessment_date:
             quizes, exams = get_assessments(subject=None, date=find_assessment_date)
+            num_exams = len(exams)
+            num_quizes = len(quizes)
             return render_template(
                 "assessments.html",
                 subjects=subjects_list,
@@ -219,6 +233,8 @@ def assessments():
                 exams=exams,
                 values=[],
                 subjects_percent=[],
+                num_exams=num_exams,
+                num_quizes=num_quizes,
             )
         else:
             result = add_assessment(
@@ -234,6 +250,8 @@ def assessments():
                 )
             quizes, exams = get_assessments(new_subject)
             percentages, subjects_percent = get_percentages(new_subject)
+            num_exams = len(exams)
+            num_quizes = len(quizes)
             return render_template(
                 "assessments.html",
                 subjects=subjects_list,
@@ -242,6 +260,8 @@ def assessments():
                 values=percentages,
                 subjects_percent=subjects_percent,
                 subject_title=new_subject,
+                num_exams=num_exams,
+                num_quizes=num_quizes,
             )
 
 
@@ -297,6 +317,7 @@ def subjects():
             quizes, exams = get_assessments(selected_subject)
             topics = get_topics(selected_subject)
             gradings = grade_weaknesses(selected_subject)
+            num_topics = get_topic_count(selected_subject)
             return render_template(
                 "subjects.html",
                 subject=selected_subject,
@@ -305,6 +326,7 @@ def subjects():
                 exams=exams,
                 topics=topics,
                 gradings=gradings,
+                num_topics=num_topics,
             )
         elif new_name:
             new_subject = add_subject(new_name, get_subjects_list())
@@ -318,6 +340,7 @@ def subjects():
                     quizes=quizes,
                     exams=exams,
                     gradings=gradings,
+                    num_topics=0,
                 )
             return render_template(
                 "apology.html",
@@ -337,6 +360,7 @@ def subjects():
                 return render_template(
                     "apology.html", msg="Please fill in/select all the fields"
                 )
+            num_topics = get_topic_count(topics_subject)
             return render_template(
                 "subjects.html",
                 subject=topics_subject,
@@ -345,10 +369,12 @@ def subjects():
                 exams=exams,
                 topics=topics,
                 gradings=gradings,
+                num_topics=num_topics,
             )
         elif remove_subject_:
             subjects_list = get_subjects_list()
             result = remove_subject(remove_subject_, subjects_list)
+            num_topics = get_topic_count(remove_subject_)
             if not result:
                 return render_template("apology.html", msg="Subject does not exist")
             return render_template(
@@ -356,6 +382,7 @@ def subjects():
                 subjects=subjects_list,
                 values=[],
                 gradings={"Moderate": [], "Weak": []},
+                num_topics=num_topics,
             )
         elif edit_topic_:
             topics_ = []
@@ -371,6 +398,7 @@ def subjects():
                 return render_template(
                     "apology.html", msg="Please fill in/select all the fields"
                 )
+            num_topics = get_topic_count(edit_topic_subject)
             return render_template(
                 "subjects.html",
                 subject=edit_topic_subject,
@@ -379,6 +407,7 @@ def subjects():
                 exams=exams,
                 topics=topics,
                 gradings=gradings,
+                num_topics=num_topics,
             )
 
 
@@ -454,7 +483,7 @@ def AI():
                     time = int(query.replace("RECORD", "").strip())
                 except:
                     return render_template("apology.html", msg="Invalid recording time")
-                
+
                 response = live_chat(query, record=time)
                 if not response:
                     return render_template(

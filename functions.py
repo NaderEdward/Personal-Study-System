@@ -69,11 +69,11 @@ def get_assessments(subject, info=None, date=None):
     elif date:
         quizes = reversed(db.execute("SELECT * FROM quizes WHERE date = ?", date))
         exams = reversed(db.execute("SELECT * FROM exams WHERE date = ?", date))
-        return quizes, exams
+        return get_reverse_list(quizes), get_reverse_list(exams)
     else:
         quizes = reversed(db.execute("SELECT * FROM quizes WHERE subject = ?", subject))
         exams = reversed(db.execute("SELECT * FROM exams WHERE subject = ?", subject))
-        return quizes, exams
+        return get_reverse_list(quizes), get_reverse_list(exams)
         ###
 
 
@@ -109,6 +109,12 @@ def add_assessment(assessment_type, subject, grade, mistakes, info):
         )
     return 1
     ###
+
+
+def get_assessment_count(subject):
+    exams = db.execute("SELECT * FROM exams WHERE subject =?", subject)
+    return len(exams)
+    ##
 
 
 # get percentage data of exams for a given subject
@@ -203,6 +209,7 @@ def add_topic(subject, topic, difficulty, strength):
             appender.writerow(
                 {"topic": topic, "difficulty": difficulty, "strength": strength}
             )
+        return topic
     else:
         with open(f"topics/__{subject.upper()}__.csv", "w") as topic_file_csv:
             writer = csv.DictWriter(
@@ -214,6 +221,18 @@ def add_topic(subject, topic, difficulty, strength):
             )
         return topic
     ###
+
+
+# find number of topics
+def get_topic_count(subject):
+    topics_file = db.execute("SELECT topics_file FROM subjects WHERE name =?", subject)
+    if topics_file:
+        with open(topics_file[0]["topics_file"], "r") as topics_file_csv:
+            reader = csv.DictReader(topics_file_csv)
+            return len(list(reader))
+    else:
+        return None
+    ##
 
 
 # Remove topic
