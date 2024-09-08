@@ -19,7 +19,7 @@
       </div>
     <h5 style="font-weight: bold; color: #212429; margin-left: -0.3cm; font-size: medium;">⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</h5>  
     <div id="new_assessment_div" class="col-auto form-item">
-        <label style="margin-top:-0.25cm; font-size: medium;" class="form-label">Add Subject</label>
+        <label style="margin-top:-0.25cm; margin-left:-0.9cm; font-size: medium;" class="form-label">Add Subject</label>
 
         <input style="margin-left:-0.25cm; margin-bottom: 10px;" autocomplete="off" name="new_name" type="text" class="form-control assessment_field" placeholder="Subject Name">
 
@@ -107,8 +107,8 @@
                             <div class="btn-group dropup" id="reset">
                                 <button class="btn-close" type="button" data-bs-toggle="dropdown" aria-label="Close" style="margin-top: -0.15cm; margin-bottom: -0.7cm;"></button>
                                 <ul class="dropdown-menu">
-                                <li><a class="dropdown-item"><button title="{{subject}}" id="remove" value="{{subject}},{{topic['topic']}}" type="button" class="btn btn-dark" style="margin-left: -0.35cm;">Delete</button></a></li>
-                                <li><a class="dropdown-item" href="#">Cancel</a></li>
+                                  <li><a class="dropdown-item"><button title="{{subject}}" id="remove{{loop.index}}" value="{{subject}},{{topic['topic']}}" type="button" class="btn btn-dark" style="margin-left: -0.35cm;">Delete</button></a></li>
+                                  <li><a class="dropdown-item" href="#">Cancel</a></li>
                                 </ul>
                             </div>
                             </td>
@@ -241,18 +241,22 @@
   </div>  
 </div>
 <script>
-  // Remove button
-  button = document.getElementById("remove")
-
-  button.addEventListener('click', () => {
+  // Remove buttons
+  for (var i = 1; i <= {{num_topics}}; i++) {
+    var id = '#remove' + i;
+    var button = document.querySelector(id);
+    console.log('remove' + i);
+    console.log(button.getAttribute('value'));
+    button.addEventListener('click', () => {
       var r = new XMLHttpRequest();
       r.open("POST", "http://127.0.0.1:5000/remove_topic", true);
       r.onreadystatechange = function () {
-          if (r.readyState != 4 || r.status != 200) return;
+        if (r.readyState != 4 || r.status != 200) return;
       };
       // Send data in below way from JS
       r.send(JSON.stringify({"input": button.getAttribute("value")}));
       location.replace(`http://127.0.0.1:5000/subjects?selected_subject=${button.getAttribute("title")}{ method: 'POST'}`); // Reload page after removing assessment
-  });
+    });
+  }
 </script>
 {% endblock %}

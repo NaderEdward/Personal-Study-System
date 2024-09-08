@@ -80,7 +80,7 @@
                 <div class="btn-group dropup" id="reset">
                     <button class="btn-close" type="button" data-bs-toggle="dropdown" aria-label="Close" style="margin-top: -0.15cm; margin-bottom: -0.7cm;"></button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item"><button title="{{exam['subject']}}" id="remove" value="{{exam['subject']}},{{exam['date']}},{{exam['info']}},Exam" type="button" class="btn btn-dark" style="margin-left: -0.35cm;">Delete</button></a></li>
+                      <li><a class="dropdown-item"><button title="{{exam['subject']}}" id="remove_E{{loop.index}}" value="{{exam['subject']}},{{exam['date']}},{{exam['info']}},Exam" type="button" class="btn btn-dark" style="margin-left: -0.35cm;">Delete</button></a></li>
                       <li><a class="dropdown-item" href="#">Cancel</a></li>
                     </ul>
                   </div>
@@ -118,7 +118,7 @@
                 <div class="btn-group dropup" id="reset">
                     <button class="btn-close" type="button" data-bs-toggle="dropdown" aria-label="Close" style="margin-top: -0.15cm; margin-bottom: -0.7cm;"></button>
                     <ul class="dropdown-menu">
-                    <li><a class="dropdown-item"><button title="{{quiz['subject']}}" id="remove" value="{{quiz['subject']}},{{quiz['date']}},{{quiz['info']}},Quiz" type="button" class="btn btn-dark" style="margin-left: -0.35cm;">Delete</button></a></li>
+                    <li><a class="dropdown-item"><button title="{{quiz['subject']}}" id="remove_Q{{loop.index}}" value="{{quiz['subject']}},{{quiz['date']}},{{quiz['info']}},Quiz" type="button" class="btn btn-dark" style="margin-left: -0.35cm;">Delete</button></a></li>
                     <li><a class="dropdown-item" href="#">Cancel</a></li>
                     </ul>
                 </div>
@@ -157,20 +157,40 @@ datasets: [{
 }]
 },
 });
-// Remove button
-button = document.getElementById("remove")
 
-button.addEventListener('click', () => {
-    var r = new XMLHttpRequest();
-    r.open("POST", "http://127.0.0.1:5000/remove_assessment", true);
-    r.onreadystatechange = function () {
+// Remove buttons
+for (var i = 1; i <= {{num_quizes}}; i++) {
+    var id = '#remove_Q' + i;
+    var button = document.querySelector(id);
+    console.log('remove_Q' + i);
+    console.log(button.getAttribute('value'));
+    button.addEventListener('click', () => {
+      var r = new XMLHttpRequest();
+      r.open("POST", "http://127.0.0.1:5000/remove_assessment", true);
+      r.onreadystatechange = function () {
         if (r.readyState != 4 || r.status != 200) return;
-        //alert("Success: " + r.responseText);
-        console.log("sent");
-    };
-    // Send data in below way from JS
-    r.send(JSON.stringify({"input": button.getAttribute("value")}));
-    location.replace(`http://127.0.0.1:5000/assessments?selected_subject=${button.getAttribute("title")}{ method: 'POST'}`); // Reload page after removing assessment
-});
+      };
+      // Send data in below way from JS
+      r.send(JSON.stringify({"input": button.getAttribute("value")}));
+      location.replace(`http://127.0.0.1:5000/assessments?selected_subject=${button.getAttribute("title")}{ method: 'POST'}`); // Reload page after removing assessment
+    });
+}
+
+for (var i = 1; i <= {{num_exams}}; i++) {
+    var id = '#remove_E' + i;
+    var button = document.querySelector(id);
+    console.log('remove_E' + i);
+    console.log(button.getAttribute('value'));
+    button.addEventListener('click', () => {
+      var r = new XMLHttpRequest();
+      r.open("POST", "http://127.0.0.1:5000/remove_assessment", true);
+      r.onreadystatechange = function () {
+        if (r.readyState != 4 || r.status != 200) return;
+      };
+      // Send data in below way from JS
+      r.send(JSON.stringify({"input": button.getAttribute("value")}));
+      location.replace(`http://127.0.0.1:5000/assessments?selected_subject=${button.getAttribute("title")}{ method: 'POST'}`); // Reload page after removing assessment
+    });
+}
 </script>
 {% endblock %}
